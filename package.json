@@ -1,0 +1,14 @@
+{
+  "name": "proto_test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "generate-js": "pbjs -t json-module -w commonjs -o ./protobuf/sample.js ./protobuf/sample.proto",
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "protobufjs": "^7.2.3",
+    "protobufjs-cli": "^1.1.1"
+  }
+}
