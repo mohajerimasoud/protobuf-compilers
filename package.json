@@ -2,13 +2,18 @@
   "name": "proto_test",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "license": "MIT",
   "scripts": {
-    "generate-js": "pbjs -t json-module -w commonjs -o ./protobuf/sample.js ./protobuf/sample.proto",
-    "start": "node main.js"
+    "generate-js": "pbjs -t json-module -w commonjs -o ./dist/pbjs/person.js ./input/person.proto",
+    "start": "node main.js",
+    "pcjs": "protoc  --js_out=library=./dist/protoc/person,binary:. ./input/person.proto",
+    "pcts": "protoc --plugin=protoc-gen-ts --ts_out=./dist/protoc/person.d --js_out=library=./dist/protoc/person,binary:. ./input/person.proto"
   },
   "dependencies": {
+    "proto3-json-serializer": "^1.1.0",
     "protobufjs": "^7.2.3",
-    "protobufjs-cli": "^1.1.1"
+    "protobufjs-cli": "^1.1.1",
+    "protoc-gen-ts": "^0.8.6"
   }
 }

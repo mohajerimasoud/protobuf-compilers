@@ -124,11 +124,11 @@ encodeMessageProtoc(message, protoFilePath, messageType);
 
 // protoc --encode=SampleMessage --proto_path=./protobuf ./protobuf/sample.proto message.json  output.bin
 // protoc --proto_path=./protobuf  --encode="SampleMessage" ./protobuf/sample.proto < message.json > output.bin
-// protoc -I . --decode_raw ./protobuf/sample.proto < ./message.json > my_binary.bin
+// protoc -I . --decode_raw ./input/person.proto < ./input/person.json > my_binary.bin
 // protoc -I . --decode_raw < ./message.json > my_binary.bin
 // protoc -I . --decode_raw < message.json | protoc -I . sample.proto --encode SampleMessage > my_binary.bin
 // protoc -I . --decode_raw < person.json | protoc -I . person.proto --encode Person > my_binary.bin
 
 // protoc -I . --decode_raw < person.json | protoc -I . person.proto --encode Person > my_binary.bin
 
-// protoc --js_out=library=myprotos_lib.js,binary:protos person.proto
+// protoc --js_out=library=./dist/protoc/person,binary:. ./input/person.proto
