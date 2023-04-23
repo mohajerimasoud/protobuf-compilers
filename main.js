@@ -1,13 +1,13 @@
 const path = require('path');
 const { exec, spawn } = require('child_process');
-
+const person = require('./person.json');
 const protobuf = require('protobufjs');
 
-const protoFile = './sample.proto';
+const protoFile = './person.proto';
 
 // // // // // //
 const root = protobuf.loadSync(protoFile);
-const SampleMessage = root.lookupType('SampleMessage');
+const SampleMessage = root.lookupType('Person');
 
 function encodeMessageProtobufjs(message) {
   const errMsg = SampleMessage.verify(message);
@@ -30,6 +30,25 @@ function decodeMessageProtobufjs(encodedMessage) {
 
   return messageObject;
 }
+
+// const person = {
+//   name: 'John Doe',
+//   age: 30,
+//   address: {
+//     street: '123 Main Street',
+//     city: 'Anytown',
+//     state: 'CA',
+//     zip: '91234',
+//   },
+// };
+
+const encodedMessageProtobufjs = encodeMessageProtobufjs(person);
+
+const decodedMessageProtobufjs = decodeMessageProtobufjs(
+  encodedMessageProtobufjs
+);
+console.log(encodedMessageProtobufjs);
+console.log(decodedMessageProtobufjs);
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
@@ -105,3 +124,11 @@ encodeMessageProtoc(message, protoFilePath, messageType);
 
 // protoc --encode=SampleMessage --proto_path=./protobuf ./protobuf/sample.proto message.json  output.bin
 // protoc --proto_path=./protobuf  --encode="SampleMessage" ./protobuf/sample.proto < message.json > output.bin
+// protoc -I . --decode_raw ./protobuf/sample.proto < ./message.json > my_binary.bin
+// protoc -I . --decode_raw < ./message.json > my_binary.bin
+// protoc -I . --decode_raw < message.json | protoc -I . sample.proto --encode SampleMessage > my_binary.bin
+// protoc -I . --decode_raw < person.json | protoc -I . person.proto --encode Person > my_binary.bin
+
+// protoc -I . --decode_raw < person.json | protoc -I . person.proto --encode Person > my_binary.bin
+
+// protoc --js_out=library=myprotos_lib.js,binary:protos person.proto
